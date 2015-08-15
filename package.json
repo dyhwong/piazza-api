@@ -4,19 +4,24 @@
   "description": "An API for Piazza",
   "main": "piazza.js",
   "directories": {
-    "test": "test"
+    "test": "tests"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "David Wong",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Piazza/piazza.git"
+    "url": "git+ssh://git@github.com/Piazza/piazza.git"
   },
   "dependencies": {
     "lodash": "^3.10.1",
     "request": "^2.60.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/Piazza/piazza/issues"
+  },
+  "homepage": "https://github.com/Piazza/piazza#readme",
+  "devDependencies": {}
 }
