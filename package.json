@@ -1,0 +1,22 @@
+{
+  "name": "piazza-api",
+  "version": "0.0.1",
+  "description": "An API for Piazza",
+  "main": "piazza.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Piazza/piazza.git"
+  },
+  "dependencies": {
+    "lodash": "^3.10.1",
+    "request": "^2.60.0"
+  }
+}
