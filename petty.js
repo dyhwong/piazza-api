@@ -1,6 +1,6 @@
 var request = require("request");
 
-var apiUrl = "http://groups/logic/api";
+var apiUrl = "https://piazza.com/logic/api";
 var cookieJar = request.jar();
 
 var callPetty = function(method, params) {
