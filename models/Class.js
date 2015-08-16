@@ -30,9 +30,12 @@ var Class = function(course) {
 Class.prototype.init = function(course) {
 	this.school = new School(course.school_name, course.school_id);
 	_.each(course.profs, function(instructor) {
-		course.office_hours[instructor.id].email = instructor.email;
-		course.office_hours[instructor.id].name = instructor.name;
-		course.office_hours[instructor.id].role = instructor.role;
+		var officeHours = {
+			email: instructor.email,
+			name: instructor.name,
+			role: instructor.role
+		};
+		course.office_hours[instructor.id] = officeHours;
 	})
 	this.officeHours = course.office_hours;
 }
