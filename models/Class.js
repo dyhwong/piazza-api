@@ -12,8 +12,6 @@ var Class = function(course) {
   this.courseDescription = course.course_description;
   this.department = course.department;
 
-  this.schoolName = course.school_name;
-  this.schoolId = course.school_id;
   this.status = course.status;
   this.term = course.term;
   this.startDate = course.start_date;
