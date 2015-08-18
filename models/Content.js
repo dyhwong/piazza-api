@@ -19,9 +19,46 @@ var Content = function(content, classId, parent) {
 
 Content.prototype.init = function(content, classId) {
 	var that = this;
+
+	if (_.last(this.history)) {
+		this.authorId = _.last(content.history).uid;
+		this.editorIds = _.chain(content.history)
+			.initial()
+			.unique("uid")
+			.map("uid")
+			.value();
+	}
+	else {
+		this.authorId = content.uid;
+		this.editorIds = [];
+	}
+
 	this.children = _.map(content.children, function(content) {
 		return new Content(content, classId, that);
 	});
+}
+
+Content.prototype.getAuthor = function() {
+	var usersPromise = callPetty("network.get_users", {
+		ids: [this.authorId],
+		nid: this.classId
+	}).then(function(users) {
+		return users[0].name;
+	});
+	return usersPromise;
+}
+
+Content.prototype.getEditors = function() {
+	if (this.editorIds.length === 0) {
+		return [];
+	}
+	var usersPromise = callPetty("network.get_users", {
+		ids: this.editorIds,
+		nid: this.classId
+	}).then(function(users) {
+		return _.map(users, "name");
+	});
+	return usersPromise;
 }
 
 Content.prototype.getParent = function() {
@@ -45,6 +82,5 @@ Content.prototype.getFollowups = function() {
 		return child.type === "followup";
 	});
 }
-
 
 module.exports = Content;
