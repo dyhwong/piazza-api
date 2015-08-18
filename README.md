@@ -115,7 +115,6 @@ Content fields include
 * classId [String] - the id of Class the Content object belongs to
 * type [String] - type of Content (for example: 'question', 'note', 's_answer', 'i_answer', 'followup', 'feedback')
 * created [String] - timestamp of when the content was created
-* authorId [String] - the id of the creator
 * views [Integer] - number of users who have viewed the content
 * folders [Array] - array of folder names the content is in
 * tags [Array] - array of tags the content is associated with (includes folders)
@@ -125,6 +124,15 @@ Content fields include
 
 Content objects have access to all other Content objects related to time like their parent and children. The `getParent` method returns the parent Content object (or none if its type is 'question' or 'note'). Both `getStudentResponse` and `getInstructorResponse` return the corresponding child Content object while `getFollowups` returns an array of all children Content objects that are followups of the current post.
 
+Content objects can also get the names of their authors and editors through `getAuthor` and `getEditors` respectively.
+
+```js
+> content.getAuthor()
+John Smith
+> content.getEditors()
+['John Smith', 'Jane Doe']
+```
+
 ## Feed Items
 
 Feed item fields include
@@ -133,7 +141,6 @@ Feed item fields include
 * classId [String] - id of the Class it belongs to
 * type [String] - type of corresponding content
 * subject [String] - title of the corresponding content
-* authorId [String] - the id of the creator
 * views [Integer] - number of users who have viewed the content
 * tags [Array] - array of tags the content is associated with
 * folders [Array] - array of folder names the content is in
