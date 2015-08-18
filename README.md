@@ -124,3 +124,24 @@ Content fields include
 * children [Array] - array of children Content objects (student answers, instructor answers, and followups)
 
 Content objects have access to all other Content objects related to time like their parent and children. The `getParent` method returns the parent Content object (or none if its type is 'question' or 'note'). Both `getStudentResponse` and `getInstructorResponse` return the corresponding child Content object while `getFollowups` returns an array of all children Content objects that are followups of the current post.
+
+## Feed Items
+
+Feed item fields include
+
+* id [String] - an id for the corresponding Content object
+* classId [String] - id of the Class it belongs to
+* type [String] - type of corresponding content
+* subject [String] - title of the corresponding content
+* authorId [String] - the id of the creator
+* views [Integer] - number of users who have viewed the content
+* tags [Array] - array of tags the content is associated with
+* folders [Array] - array of folder names the content is in
+* lastModified [String] - timestamp of last edit
+* log [Array] - the same as Content changelog
+
+Feed items can be converted to Content objects when necessary using the `toContent` method.
+
+```js
+> item.toContent()
+```

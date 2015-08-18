@@ -9,10 +9,6 @@ var FeedItem = function(item, classId) {
 	this.authorId = item.log[0].u;
 
 	this.views = item.unique_views;
-	this.hasAnswer = item.no_answer ? false : true;
-	this.hasFollowup = item.no_answer_followup ? false : true;
-	this.bucketName = item.bucket_name;
-
 	this.tags = item.tags;
 	this.folders = item.folders;
 	this.lastModified = item.modified;
