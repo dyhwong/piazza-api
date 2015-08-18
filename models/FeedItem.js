@@ -20,7 +20,7 @@ FeedItem.prototype.toContent = function() {
 		nid: this.classId,
 		cid: this.id
 	}).then(function(content) {
-		return new Content(content);
+		return new Content(content, classId);
 	});
 	return contentPromise;
 }

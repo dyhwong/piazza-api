@@ -8,7 +8,6 @@ var Content = function(content, classId, parent) {
 	this.classId = classId;
 	this.type = content.type;
 	this.created = content.created;
-	this.authorId = _.last(content.history).uid;
 	this.views = content.unique_views || parent.views;
 	this.folders = content.folders || parent.folders;
 	this.tags = content.tags || parent.tags;
