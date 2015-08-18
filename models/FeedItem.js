@@ -6,6 +6,7 @@ var FeedItem = function(item, classId) {
 	this.classId = classId;
 	this.type = item.type;
 	this.subject = item.subject;
+	this.authorId = item.log[0].u;
 
 	this.views = item.unique_views;
 	this.hasAnswer = item.no_answer ? false : true;

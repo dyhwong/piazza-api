@@ -8,6 +8,7 @@ var Content = function(content, classId, parent) {
 	this.classId = classId;
 	this.type = content.type;
 	this.created = content.created;
+	this.authorId = _.last(content.history).uid;
 	this.views = content.unique_views || parent.views;
 	this.folders = content.folders || parent.folders;
 	this.tags = content.tags || parent.tags;
@@ -30,19 +31,19 @@ Content.prototype.getParent = function() {
 
 Content.prototype.getStudentResponse = function() {
 	return _.find(this.children, function(child) {
-		return child.type == "s_answer";
+		return child.type === "s_answer";
 	});
 }
 
 Content.prototype.getInstructorResponse = function() {
 	return _.find(this.children, function(child) {
-		return child.type == "i_answer";
+		return child.type === "i_answer";
 	});
 }
 
 Content.prototype.getFollowups = function() {
 	return _.filter(this.children, function(child) {
-		return child.type == "followup";
+		return child.type === "followup";
 	});
 }
 

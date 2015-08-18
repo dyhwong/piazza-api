@@ -7,10 +7,7 @@ var callPetty = require("../petty");
 var User = function(user) {
   this.id = user.id;
   this.name = user.name;
-  this.schoolName = user.school;
-  this.schoolId = user.school_id;
   this.email = user.email;
-  this.emails = user.emails;
   this.roles = user.config.roles;
   
   this.init(user);

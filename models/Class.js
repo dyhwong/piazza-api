@@ -83,7 +83,6 @@ Class.prototype.filterByFolder = function(folderName) {
 	return filterPromise;
 }
 
-// sample properties: "unread", "unresolved", "hidden", "following", "instructor"
 Class.prototype.filterByProperty = function(property) {
 	var params = {
 		nid: this.id,
@@ -99,13 +98,14 @@ Class.prototype.filterByProperty = function(property) {
 	return filterPromise;
 }
 
-// make sure to test this on production because I don't have Sphinx locally
 Class.prototype.search = function(query) {
 	var searchPromise = callPetty("network.search", {
 		nid: this.id,
 		query: query
 	}).then(function(data) {
-		return data;
+		return _.map(data, function(item) {
+			return new FeedItem(item, classId);
+		});
 	});
 	return searchPromise;
 }
