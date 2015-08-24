@@ -7,6 +7,10 @@ var Content = function(content, classId, parent) {
 	this.parent = parent;
 	this.classId = classId;
 	this.type = content.type;
+
+	this.title = content.history[0].subject;
+	this.content = content.history[0].content;
+
 	this.created = content.created;
 	this.views = content.unique_views || parent.views;
 	this.folders = content.folders || parent.folders;

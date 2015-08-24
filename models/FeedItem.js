@@ -5,7 +5,8 @@ var FeedItem = function(item, classId) {
 	this.id = item.id;
 	this.classId = classId;
 	this.type = item.type;
-	this.subject = item.subject;
+	this.title = item.subject;
+	this.contentSnippet = item.content_snipet;
 
 	this.views = item.unique_views;
 	this.tags = item.tags;

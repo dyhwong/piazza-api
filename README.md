@@ -114,6 +114,8 @@ Content fields include
 * parent [Content] - the Content object that this one is a child of (or undefined if none)
 * classId [String] - the id of Class the Content object belongs to
 * type [String] - type of Content (for example: 'question', 'note', 's_answer', 'i_answer', 'followup', 'feedback')
+* title [String] - title of Content
+* content [String] - text body of Content (includes HTML tags)
 * created [String] - timestamp of when the content was created
 * views [Integer] - number of users who have viewed the content
 * folders [Array] - array of folder names the content is in
@@ -140,7 +142,8 @@ Feed item fields include
 * id [String] - an id for the corresponding Content object
 * classId [String] - id of the Class it belongs to
 * type [String] - type of corresponding content
-* subject [String] - title of the corresponding content
+* title [String] - title of the corresponding content
+* contentSnippet [String] - truncated text body of the content
 * views [Integer] - number of users who have viewed the content
 * tags [Array] - array of tags the content is associated with
 * folders [Array] - array of folder names the content is in
