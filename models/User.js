@@ -1,6 +1,5 @@
 var _ = require("lodash");
 
-var School = require("./School");
 var Class = require("./Class");
 var callPetty = require("../petty");
 
@@ -21,7 +20,6 @@ User.prototype.init = function(user) {
   this.lastSeenClass = _.find(this.classes, function(course) {
     return course.id === user.last_network;
   });
-  this.school = new School(user.school, user.school_id);
 }
 
 User.prototype.getClassById = function(class_id) {

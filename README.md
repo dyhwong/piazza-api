@@ -54,7 +54,6 @@ User fields include
 * classIds [Array] - an array containing the string IDs of the user's enrolled classes
 * classes [Array] - an array of Class objects the user is enrolled in
 * lastSeenClass [Class] - the most recent Class the user has looked at
-* school [School] - the school the user belongs to
 
 Users can find Classes they are enrolled in by class ID or by their role in the Class. They can also check whether or not they are enrolled in a class.
 ```js
