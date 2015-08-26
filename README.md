@@ -72,9 +72,9 @@ School fields include
 * id [String] - a unique id for each school
 * name [String] - the name of the school
 
-Each User and each class belongs to one School which can be found school fields. Schools currently have no methods and only have access to their name and ID.
+Each class belongs to one School which can be found school field. Schools currently have no methods and only have access to their name and ID.
 ```js
-> user.school.name
+> school.name
 Stanford University
 ```
 
