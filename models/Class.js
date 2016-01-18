@@ -102,7 +102,7 @@ Class.prototype.search = function(query) {
 		query: query
 	}).then(function(data) {
 		return _.map(data, function(item) {
-			return new FeedItem(item, classId);
+			return new FeedItem(item, this.id);
 		});
 	});
 	return searchPromise;
