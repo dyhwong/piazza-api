@@ -97,16 +97,14 @@ Class.prototype.filterByProperty = function(property) {
 }
 
 Class.prototype.search = function(query) {
-	var class_details = this;
 	var searchPromise = callPetty("network.search", {
 		nid: this.id,
 		query: query
 	}).then(function(data) {
 		return _.map(data, function(item) {
-			console.log(this.id);
-			return new FeedItem(item, class_details.id);
-		});
-	});
+			return new FeedItem(item, this.id);
+		}.bind(this));
+	}.bind(this));
 	return searchPromise;
 }
 
