@@ -7,21 +7,25 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha tests/"
   },
   "author": "David Wong",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/Piazza/piazza.git"
+    "url": "git+ssh://git@github.com/dyhwong/piazza-api.git"
   },
   "dependencies": {
     "lodash": "^3.10.1",
     "request": "^2.60.0"
   },
   "bugs": {
-    "url": "https://github.com/Piazza/piazza/issues"
+    "url": "https://github.com/dyhwong/piazza-api/issues"
   },
-  "homepage": "https://github.com/Piazza/piazza#readme",
-  "devDependencies": {}
+  "homepage": "https://github.com/dyhwong/piazza-api#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0",
+    "chai-http": "^3.0.0"
+  }
 }

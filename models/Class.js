@@ -26,7 +26,7 @@ var Class = function(course) {
 }
 
 Class.prototype.init = function(course) {
-	this.school = new School(course.school_name, course.school_id);
+	this.school = new School(course.school, course.school_id);
 	_.each(course.profs, function(instructor) {
 		var officeHours = course.office_hours[instructor.id] || {};
 		officeHours.email = instructor.email;
@@ -97,6 +97,7 @@ Class.prototype.filterByProperty = function(property) {
 }
 
 Class.prototype.search = function(query) {
+	var classId = this.id;
 	var searchPromise = callPetty("network.search", {
 		nid: this.id,
 		query: query

@@ -16,6 +16,7 @@ var FeedItem = function(item, classId) {
 }
 
 FeedItem.prototype.toContent = function() {
+	var classId = this.classId;
 	var contentPromise = callPetty("content.get", {
 		nid: this.classId,
 		cid: this.id

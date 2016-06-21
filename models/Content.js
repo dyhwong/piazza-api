@@ -54,7 +54,7 @@ Content.prototype.getAuthor = function() {
 
 Content.prototype.getEditors = function() {
 	if (this.editorIds.length === 0) {
-		return [];
+		return Promise.resolve([]);
 	}
 	var usersPromise = callPetty("network.get_users", {
 		ids: this.editorIds,
