@@ -1,9 +1,9 @@
 var Content = require("./Content");
 var callPetty = require("../petty")
 
-var FeedItem = function(item, classId) {
+var FeedItem = function(item, classID) {
 	this.id = item.id;
-	this.classId = classId;
+	this.classID = classID;
 	this.type = item.type;
 	this.title = item.subject;
 	this.contentSnippet = item.content_snipet;
@@ -16,12 +16,12 @@ var FeedItem = function(item, classId) {
 }
 
 FeedItem.prototype.toContent = function() {
-	var classId = this.classId;
+	var classID = this.classID;
 	var contentPromise = callPetty("content.get", {
-		nid: this.classId,
+		nid: this.classID,
 		cid: this.id
 	}).then(function(content) {
-		return new Content(content, classId);
+		return new Content(content, classID);
 	});
 	return contentPromise;
 }

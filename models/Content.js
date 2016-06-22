@@ -2,10 +2,10 @@ var _ = require("lodash");
 
 var callPetty = require("../petty");
 
-var Content = function(content, classId, parent) {
+var Content = function(content, classID, parent) {
 	this.id = content.id;
 	this.parent = parent;
-	this.classId = classId;
+	this.classID = classID;
 	this.type = content.type;
 
 	this.title = content.history[0].subject;
@@ -18,34 +18,34 @@ var Content = function(content, classId, parent) {
 	this.history = content.history;
 	this.changeLog = content.change_log;
 
-	this.init(content, classId);
+	this.init(content, classID);
 }
 
-Content.prototype.init = function(content, classId) {
+Content.prototype.init = function(content, classID) {
 	var that = this;
 
 	if (_.last(this.history)) {
-		this.authorId = _.last(content.history).uid;
-		this.editorIds = _.chain(content.history)
+		this.authorID = _.last(content.history).uid;
+		this.editorIDs = _.chain(content.history)
 			.initial()
 			.unique("uid")
 			.map("uid")
 			.value();
 	}
 	else {
-		this.authorId = content.uid;
-		this.editorIds = [];
+		this.authorID = content.uid;
+		this.editorIDs = [];
 	}
 
 	this.children = _.map(content.children, function(content) {
-		return new Content(content, classId, that);
+		return new Content(content, classID, that);
 	});
 }
 
 Content.prototype.getAuthor = function() {
 	var usersPromise = callPetty("network.get_users", {
-		ids: [this.authorId],
-		nid: this.classId
+		ids: [this.authorID],
+		nid: this.classID
 	}).then(function(users) {
 		return users[0].name;
 	});
@@ -53,12 +53,12 @@ Content.prototype.getAuthor = function() {
 }
 
 Content.prototype.getEditors = function() {
-	if (this.editorIds.length === 0) {
+	if (this.editorIDs.length === 0) {
 		return Promise.resolve([]);
 	}
 	var usersPromise = callPetty("network.get_users", {
-		ids: this.editorIds,
-		nid: this.classId
+		ids: this.editorIDs,
+		nid: this.classID
 	}).then(function(users) {
 		return _.map(users, "name");
 	});

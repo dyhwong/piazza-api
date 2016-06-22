@@ -13,7 +13,7 @@ var User = function(user) {
 }
 
 User.prototype.init = function(user) {
-  this.classIds = _.map(user.networks, "id");
+  this.classIDs = _.map(user.networks, "id");
   this.classes = _.map(user.networks, function(course) {
     return new Class(course);
   });
@@ -22,8 +22,8 @@ User.prototype.init = function(user) {
   });
 }
 
-User.prototype.getClassById = function(class_id) {
-  if (_.indexOf(this.classIds, class_id) === -1) {
+User.prototype.getClassByID = function(class_id) {
+  if (_.indexOf(this.classIDs, class_id) === -1) {
     throw new Error("User not enrolled in class");
   }
   return _.find(this.classes, function(course) {
@@ -39,7 +39,7 @@ User.prototype.getClassesByRole = function(role) {
 }
 
 User.prototype.isTakingClass = function(class_id) {
-  return this.classIds.indexOf(class_id) > -1;
+  return this.classIDs.indexOf(class_id) > -1;
 }
 
 module.exports = User;

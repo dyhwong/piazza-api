@@ -55,19 +55,19 @@ Class.prototype.getStats = function() {
 	return statsPromise;
 }
 
-Class.prototype.getContentById = function(contentId) {
-	var classId = this.id;
+Class.prototype.getContentByID = function(contentID) {
+	var classID = this.id;
 	var contentPromise = callPetty("content.get", {
-		nid: classId,
-		cid: contentId
+		nid: classID,
+		cid: contentID
 	}).then(function(data) {
-		return new Content(data, classId);
+		return new Content(data, classID);
 	});
 	return contentPromise;
 }
 
 Class.prototype.filterByFolder = function(folderName) {
-	var classId = this.id;
+	var classID = this.id;
 	var filterPromise = callPetty("network.filter_feed", {
 		nid: this.id,
 		sort: "updated",
@@ -75,7 +75,7 @@ Class.prototype.filterByFolder = function(folderName) {
 		folder: 1
 	}).then(function(data) {
 		return _.map(data.feed, function(item) {
-			return new FeedItem(item, classId);
+			return new FeedItem(item, classID);
 		});
 	});
 	return filterPromise;
@@ -87,23 +87,23 @@ Class.prototype.filterByProperty = function(property) {
 		sort: "updated"
 	};
 	params[property] = 1;
-	var classId = this.id;
+	var classID = this.id;
 	var filterPromise = callPetty("network.filter_feed", params).then(function(data) {
 		return _.map(data.feed, function(item) {
-			return new FeedItem(item, classId);
+			return new FeedItem(item, classID);
 		});
 	});
 	return filterPromise;
 }
 
 Class.prototype.search = function(query) {
-	var classId = this.id;
+	var classID = this.id;
 	var searchPromise = callPetty("network.search", {
 		nid: this.id,
 		query: query
 	}).then(function(data) {
 		return _.map(data, function(item) {
-			return new FeedItem(item, classId);
+			return new FeedItem(item, classID);
 		});
 	});
 	return searchPromise;
