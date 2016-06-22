@@ -1,5 +1,5 @@
 var Content = require("./Content");
-var callPetty = require("../petty")
+var RPC = require("../RPC.js")
 
 var FeedItem = function(item, classID) {
 	this.id = item.id;
@@ -17,7 +17,7 @@ var FeedItem = function(item, classID) {
 
 FeedItem.prototype.toContent = function() {
 	var classID = this.classID;
-	var contentPromise = callPetty("content.get", {
+	var contentPromise = RPC("content.get", {
 		nid: this.classID,
 		cid: this.id
 	}).then(function(content) {

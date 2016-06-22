@@ -3,7 +3,7 @@ var _ = require("lodash");
 var School = require("./School");
 var Content = require("./Content");
 var FeedItem = require("./FeedItem");
-var callPetty = require("../petty");
+var RPC = require("../RPC.js");
 
 var Class = function(course) {
   this.id = course.id;
@@ -38,7 +38,7 @@ Class.prototype.init = function(course) {
 }
 
 Class.prototype.getOnlineUsersCount = function() {
-	var countPromise = callPetty("network.get_online_users", {
+	var countPromise = RPC("network.get_online_users", {
 		nid: this.id
 	}).then(function(countData) {
 		return countData.users;
@@ -47,7 +47,7 @@ Class.prototype.getOnlineUsersCount = function() {
 }
 
 Class.prototype.getStats = function() {
-	var statsPromise = callPetty("network.get_instructor_stats", {
+	var statsPromise = RPC("network.get_instructor_stats", {
 		nid: this.id
 	}).then(function(stats) {
 		return stats;
@@ -57,7 +57,7 @@ Class.prototype.getStats = function() {
 
 Class.prototype.getContentByID = function(contentID) {
 	var classID = this.id;
-	var contentPromise = callPetty("content.get", {
+	var contentPromise = RPC("content.get", {
 		nid: classID,
 		cid: contentID
 	}).then(function(data) {
@@ -68,7 +68,7 @@ Class.prototype.getContentByID = function(contentID) {
 
 Class.prototype.filterByFolder = function(folderName) {
 	var classID = this.id;
-	var filterPromise = callPetty("network.filter_feed", {
+	var filterPromise = RPC("network.filter_feed", {
 		nid: this.id,
 		sort: "updated",
 		filter_folder: folderName,
@@ -88,7 +88,7 @@ Class.prototype.filterByProperty = function(property) {
 	};
 	params[property] = 1;
 	var classID = this.id;
-	var filterPromise = callPetty("network.filter_feed", params).then(function(data) {
+	var filterPromise = RPC("network.filter_feed", params).then(function(data) {
 		return _.map(data.feed, function(item) {
 			return new FeedItem(item, classID);
 		});
@@ -98,7 +98,7 @@ Class.prototype.filterByProperty = function(property) {
 
 Class.prototype.search = function(query) {
 	var classID = this.id;
-	var searchPromise = callPetty("network.search", {
+	var searchPromise = RPC("network.search", {
 		nid: this.id,
 		query: query
 	}).then(function(data) {

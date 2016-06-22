@@ -1,6 +1,6 @@
 var _ = require("lodash");
 
-var callPetty = require("../petty");
+var RPC = require("../RPC.js");
 
 var Content = function(content, classID, parent) {
 	this.id = content.id;
@@ -43,7 +43,7 @@ Content.prototype.init = function(content, classID) {
 }
 
 Content.prototype.getAuthor = function() {
-	var usersPromise = callPetty("network.get_users", {
+	var usersPromise = RPC("network.get_users", {
 		ids: [this.authorID],
 		nid: this.classID
 	}).then(function(users) {
@@ -56,7 +56,7 @@ Content.prototype.getEditors = function() {
 	if (this.editorIDs.length === 0) {
 		return Promise.resolve([]);
 	}
-	var usersPromise = callPetty("network.get_users", {
+	var usersPromise = RPC("network.get_users", {
 		ids: this.editorIDs,
 		nid: this.classID
 	}).then(function(users) {

@@ -1,7 +1,7 @@
 var _ = require("lodash");
 
 var Class = require("./Class");
-var callPetty = require("../petty");
+var RPC = require("../RPC.js");
 
 var User = function(user) {
   this.id = user.id;

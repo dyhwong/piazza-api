@@ -1,14 +1,14 @@
 var User = require("./models/User");
-var callPetty = require("./petty");
+var RPC = require("./RPC.js");
 
 module.exports = {
   // must login before accessing other api methods
   login: function(email, password) {
-    var loginPromise = callPetty("user.login", {
+    var loginPromise = RPC("user.login", {
       email: email,
       pass: password
     }).then(function(data) {
-      var getUserPromise = callPetty("user.status", {});
+      var getUserPromise = RPC("user.status", {});
       return getUserPromise;
     }).then(function(data) {
       return new User(data);

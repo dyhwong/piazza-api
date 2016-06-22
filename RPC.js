@@ -3,7 +3,7 @@ var request = require("request");
 var apiUrl = "https://piazza.com/logic/api";
 var cookieJar = request.jar();
 
-var callPetty = function(method, params) {
+var RPC = function(method, params) {
 	var requestJson = {
     url: apiUrl, 
     json: {
@@ -27,4 +27,4 @@ var callPetty = function(method, params) {
 	return promise;
 }
 
-module.exports = callPetty;
+module.exports = RPC;
