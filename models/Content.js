@@ -46,9 +46,11 @@ Content.prototype.getAuthor = function() {
   var usersPromise = RPC("network.get_users", {
     ids: [this.authorID],
     nid: this.classID
-  }).then(function(users) {
+  })
+  .then(function(users) {
     return users[0].name;
   });
+
   return usersPromise;
 }
 
@@ -59,9 +61,11 @@ Content.prototype.getEditors = function() {
   var usersPromise = RPC("network.get_users", {
     ids: this.editorIDs,
     nid: this.classID
-  }).then(function(users) {
+  })
+  .then(function(users) {
     return _.map(users, "name");
   });
+  
   return usersPromise;
 }
 

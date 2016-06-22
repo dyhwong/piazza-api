@@ -20,9 +20,11 @@ FeedItem.prototype.toContent = function() {
   var contentPromise = RPC("content.get", {
     nid: this.classID,
     cid: this.id
-  }).then(function(content) {
+  })
+  .then(function(content) {
     return new Content(content, classID);
   });
+
   return contentPromise;
 }
 

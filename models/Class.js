@@ -40,18 +40,22 @@ Class.prototype.init = function(course) {
 Class.prototype.getOnlineUsersCount = function() {
   var countPromise = RPC("network.get_online_users", {
     nid: this.id
-  }).then(function(countData) {
+  })
+  .then(function(countData) {
     return countData.users;
   });
+
   return countPromise;
 }
 
 Class.prototype.getStats = function() {
   var statsPromise = RPC("network.get_instructor_stats", {
     nid: this.id
-  }).then(function(stats) {
+  })
+  .then(function(stats) {
     return stats;
   });
+
   return statsPromise;
 }
 
@@ -60,9 +64,11 @@ Class.prototype.getContentByID = function(contentID) {
   var contentPromise = RPC("content.get", {
     nid: classID,
     cid: contentID
-  }).then(function(data) {
+  })
+  .then(function(data) {
     return new Content(data, classID);
   });
+
   return contentPromise;
 }
 
@@ -73,11 +79,13 @@ Class.prototype.filterByFolder = function(folderName) {
     sort: "updated",
     filter_folder: folderName,
     folder: 1
-  }).then(function(data) {
+  })
+  .then(function(data) {
     return _.map(data.feed, function(item) {
       return new FeedItem(item, classID);
     });
   });
+
   return filterPromise;
 }
 
@@ -88,11 +96,13 @@ Class.prototype.filterByProperty = function(property) {
   };
   params[property] = 1;
   var classID = this.id;
-  var filterPromise = RPC("network.filter_feed", params).then(function(data) {
+  var filterPromise = RPC("network.filter_feed", params)
+  .then(function(data) {
     return _.map(data.feed, function(item) {
       return new FeedItem(item, classID);
     });
   });
+
   return filterPromise;
 }
 
@@ -101,11 +111,13 @@ Class.prototype.search = function(query) {
   var searchPromise = RPC("network.search", {
     nid: this.id,
     query: query
-  }).then(function(data) {
+  })
+  .then(function(data) {
     return _.map(data, function(item) {
       return new FeedItem(item, classID);
     });
   });
+  
   return searchPromise;
 }
 

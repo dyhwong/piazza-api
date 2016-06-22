@@ -7,12 +7,15 @@ module.exports = {
     var loginPromise = RPC("user.login", {
       email: email,
       pass: password
-    }).then(function(data) {
+    })
+    .then(function(data) {
       var getUserPromise = RPC("user.status", {});
       return getUserPromise;
-    }).then(function(data) {
+    })
+    .then(function(data) {
       return new User(data);
     });
+    
     return loginPromise;
   }
 };
