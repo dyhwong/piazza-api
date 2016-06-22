@@ -26,87 +26,87 @@ var Class = function(course) {
 }
 
 Class.prototype.init = function(course) {
-	this.school = new School(course.school, course.school_id);
-	_.each(course.profs, function(instructor) {
-		var officeHours = course.office_hours[instructor.id] || {};
-		officeHours.email = instructor.email;
-		officeHours.name = instructor.name;
-		officeHours.role = instructor.role;
-		course.office_hours[instructor.id] = officeHours;
-	})
-	this.officeHours = course.office_hours;
+  this.school = new School(course.school, course.school_id);
+  _.each(course.profs, function(instructor) {
+    var officeHours = course.office_hours[instructor.id] || {};
+    officeHours.email = instructor.email;
+    officeHours.name = instructor.name;
+    officeHours.role = instructor.role;
+    course.office_hours[instructor.id] = officeHours;
+  })
+  this.officeHours = course.office_hours;
 }
 
 Class.prototype.getOnlineUsersCount = function() {
-	var countPromise = RPC("network.get_online_users", {
-		nid: this.id
-	}).then(function(countData) {
-		return countData.users;
-	});
-	return countPromise;
+  var countPromise = RPC("network.get_online_users", {
+    nid: this.id
+  }).then(function(countData) {
+    return countData.users;
+  });
+  return countPromise;
 }
 
 Class.prototype.getStats = function() {
-	var statsPromise = RPC("network.get_instructor_stats", {
-		nid: this.id
-	}).then(function(stats) {
-		return stats;
-	});
-	return statsPromise;
+  var statsPromise = RPC("network.get_instructor_stats", {
+    nid: this.id
+  }).then(function(stats) {
+    return stats;
+  });
+  return statsPromise;
 }
 
 Class.prototype.getContentByID = function(contentID) {
-	var classID = this.id;
-	var contentPromise = RPC("content.get", {
-		nid: classID,
-		cid: contentID
-	}).then(function(data) {
-		return new Content(data, classID);
-	});
-	return contentPromise;
+  var classID = this.id;
+  var contentPromise = RPC("content.get", {
+    nid: classID,
+    cid: contentID
+  }).then(function(data) {
+    return new Content(data, classID);
+  });
+  return contentPromise;
 }
 
 Class.prototype.filterByFolder = function(folderName) {
-	var classID = this.id;
-	var filterPromise = RPC("network.filter_feed", {
-		nid: this.id,
-		sort: "updated",
-		filter_folder: folderName,
-		folder: 1
-	}).then(function(data) {
-		return _.map(data.feed, function(item) {
-			return new FeedItem(item, classID);
-		});
-	});
-	return filterPromise;
+  var classID = this.id;
+  var filterPromise = RPC("network.filter_feed", {
+    nid: this.id,
+    sort: "updated",
+    filter_folder: folderName,
+    folder: 1
+  }).then(function(data) {
+    return _.map(data.feed, function(item) {
+      return new FeedItem(item, classID);
+    });
+  });
+  return filterPromise;
 }
 
 Class.prototype.filterByProperty = function(property) {
-	var params = {
-		nid: this.id,
-		sort: "updated"
-	};
-	params[property] = 1;
-	var classID = this.id;
-	var filterPromise = RPC("network.filter_feed", params).then(function(data) {
-		return _.map(data.feed, function(item) {
-			return new FeedItem(item, classID);
-		});
-	});
-	return filterPromise;
+  var params = {
+    nid: this.id,
+    sort: "updated"
+  };
+  params[property] = 1;
+  var classID = this.id;
+  var filterPromise = RPC("network.filter_feed", params).then(function(data) {
+    return _.map(data.feed, function(item) {
+      return new FeedItem(item, classID);
+    });
+  });
+  return filterPromise;
 }
 
 Class.prototype.search = function(query) {
-	var classID = this.id;
-	var searchPromise = RPC("network.search", {
-		nid: this.id,
-		query: query
-	}).then(function(data) {
-		return _.map(data, function(item) {
-			return new FeedItem(item, classID);
-		});
-	});
-	return searchPromise;
+  var classID = this.id;
+  var searchPromise = RPC("network.search", {
+    nid: this.id,
+    query: query
+  }).then(function(data) {
+    return _.map(data, function(item) {
+      return new FeedItem(item, classID);
+    });
+  });
+  return searchPromise;
 }
 
 module.exports = Class;
