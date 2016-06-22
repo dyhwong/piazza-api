@@ -1,4 +1,4 @@
-var User = require("./models/User");
+var User = require("./models/User.js");
 var RPC = require("./RPC.js");
 
 module.exports = {

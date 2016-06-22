@@ -1,8 +1,8 @@
 var _ = require("lodash");
 
-var School = require("./School");
-var Content = require("./Content");
-var FeedItem = require("./FeedItem");
+var School = require("./School.js");
+var Content = require("./Content.js");
+var FeedItem = require("./FeedItem.js");
 var RPC = require("../RPC.js");
 
 var Class = function(course) {

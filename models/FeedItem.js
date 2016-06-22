@@ -1,4 +1,4 @@
-var Content = require("./Content");
+var Content = require("./Content.js");
 var RPC = require("../RPC.js")
 
 var FeedItem = function(item, classID) {

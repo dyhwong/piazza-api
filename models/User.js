@@ -1,6 +1,6 @@
 var _ = require("lodash");
 
-var Class = require("./Class");
+var Class = require("./Class.js");
 var RPC = require("../RPC.js");
 
 var User = function(user) {
