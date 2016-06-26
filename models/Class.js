@@ -121,4 +121,8 @@ Class.prototype.search = function(query) {
   return searchPromise;
 }
 
+Class.prototype.getFeed = function() {
+  return this.search("");
+}
+
 module.exports = Class;
