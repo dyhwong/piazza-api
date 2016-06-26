@@ -9,10 +9,10 @@ var User = function(user) {
   this.email = user.email;
   this.roles = user.config.roles;
   
-  this.init(user);
+  this._init(user);
 }
 
-User.prototype.init = function(user) {
+User.prototype._init = function(user) {
   this.classIDs = _.map(user.networks, "id");
   this.classes = _.map(user.networks, function(course) {
     return new Class(course);

@@ -22,10 +22,10 @@ var Class = function(course) {
   this.folders = course.folders;
   this.instructors = course.profs;
 
-  this.init(course);
+  this._init(course);
 }
 
-Class.prototype.init = function(course) {
+Class.prototype._init = function(course) {
   this.school = new School(course.school, course.school_id);
   _.each(course.profs, function(instructor) {
     var officeHours = course.office_hours[instructor.id] || {};

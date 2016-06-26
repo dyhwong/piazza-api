@@ -18,10 +18,10 @@ var Content = function(content, classID, parent) {
   this.history = content.history;
   this.changeLog = content.change_log;
 
-  this.init(content, classID);
+  this._init(content, classID);
 }
 
-Content.prototype.init = function(content, classID) {
+Content.prototype._init = function(content, classID) {
   var that = this;
 
   if (_.last(this.history)) {
