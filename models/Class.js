@@ -110,7 +110,7 @@ Class.prototype.search = function(query) {
   var classID = this.id;
   var searchPromise = RPC("network.search", {
     nid: this.id,
-    query: query
+    query: query,
   })
   .then(function(data) {
     return _.map(data, function(item) {

@@ -45,7 +45,7 @@ Content.prototype._init = function(content, classID) {
 Content.prototype.getAuthor = function() {
   var usersPromise = RPC("network.get_users", {
     ids: [this.authorID],
-    nid: this.classID
+    nid: this.classID,
   })
   .then(function(users) {
     return users[0].name;
@@ -60,7 +60,7 @@ Content.prototype.getEditors = function() {
   }
   var usersPromise = RPC("network.get_users", {
     ids: this.editorIDs,
-    nid: this.classID
+    nid: this.classID,
   })
   .then(function(users) {
     return _.map(users, "name");
