@@ -6,7 +6,7 @@ var FeedItem = function(item, classID) {
   this.classID = classID;
   this.type = item.type;
   this.title = item.subject;
-  this.contentSnippet = item.content_snipet; // TODO: is this spelled right?
+  this.contentSnippet = item.content_snipet; // this is actually spelled correctly
 
   this.views = item.unique_views;
   this.tags = item.tags;
