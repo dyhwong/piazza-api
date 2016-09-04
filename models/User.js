@@ -21,11 +21,11 @@ User.prototype._init = function(user) {
   );
 }
 
-User.prototype.getClassByID = function(class_id) {
-  if (_.indexOf(this.classIDs, class_id) === -1) {
+User.prototype.getClassByID = function(classID) {
+  if (_.indexOf(this.classIDs, classID) === -1) {
     throw new Error("User not enrolled in class");
   }
-  return _.find(this.classes, course => course.id === class_id);
+  return _.find(this.classes, course => course.id === classID);
 }
 
 User.prototype.getClassesByRole = function(role) {
@@ -33,8 +33,8 @@ User.prototype.getClassesByRole = function(role) {
   return _.filter(this.classes, course => roles[course.id] === role);
 }
 
-User.prototype.isTakingClass = function(class_id) {
-  return this.classIDs.indexOf(class_id) > -1;
+User.prototype.isTakingClass = function(classID) {
+  return this.classIDs.indexOf(classID) > -1;
 }
 
 module.exports = User;
