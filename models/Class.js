@@ -27,13 +27,13 @@ var Class = function(course) {
 
 Class.prototype._init = function(course) {
   this.school = new School(course.school, course.school_id);
-  _.each(course.profs, function(instructor) {
+  _.each(course.profs, instructor => {
     var officeHours = course.office_hours[instructor.id] || {};
     officeHours.email = instructor.email;
     officeHours.name = instructor.name;
     officeHours.role = instructor.role;
     course.office_hours[instructor.id] = officeHours;
-  })
+  });
   this.officeHours = course.office_hours;
 }
 
@@ -41,9 +41,7 @@ Class.prototype.getOnlineUsersCount = function() {
   var countPromise = RPC("network.get_online_users", {
     nid: this.id
   })
-  .then(function(countData) {
-    return countData.users;
-  });
+  .then(countData => countData.users);
 
   return countPromise;
 }
@@ -51,9 +49,6 @@ Class.prototype.getOnlineUsersCount = function() {
 Class.prototype.getStats = function() {
   var statsPromise = RPC("network.get_instructor_stats", {
     nid: this.id
-  })
-  .then(function(stats) {
-    return stats;
   });
 
   return statsPromise;
@@ -65,9 +60,7 @@ Class.prototype.getContentByID = function(contentID) {
     nid: classID,
     cid: contentID
   })
-  .then(function(data) {
-    return new Content(data, classID);
-  });
+  .then(data => new Content(data, classID));
 
   return contentPromise;
 }
@@ -80,11 +73,12 @@ Class.prototype.filterByFolder = function(folderName) {
     filter_folder: folderName,
     folder: 1
   })
-  .then(function(data) {
-    return _.map(data.feed, function(item) {
-      return new FeedItem(item, classID);
-    });
-  });
+  .then(
+    data => _.map(
+      data.feed,
+      item => new FeedItem(item, classID)
+    )
+  );
 
   return filterPromise;
 }
@@ -97,11 +91,12 @@ Class.prototype.filterByProperty = function(property) {
   params[property] = 1;
   var classID = this.id;
   var filterPromise = RPC("network.filter_feed", params)
-  .then(function(data) {
-    return _.map(data.feed, function(item) {
-      return new FeedItem(item, classID);
-    });
-  });
+  .then(
+    data => _.map(
+      data.feed,
+      item => new FeedItem(item, classID)
+    )
+  );
 
   return filterPromise;
 }
@@ -112,11 +107,12 @@ Class.prototype.search = function(query) {
     nid: this.id,
     query: query,
   })
-  .then(function(data) {
-    return _.map(data, function(item) {
-      return new FeedItem(item, classID);
-    });
-  });
+  .then(
+    data => _.map(
+      data,
+      item => new FeedItem(item, classID)
+    )
+  );
   
   return searchPromise;
 }

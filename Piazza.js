@@ -8,13 +8,8 @@ module.exports = {
       email: email,
       pass: password
     })
-    .then(function(data) {
-      var getUserPromise = RPC("user.status", {});
-      return getUserPromise;
-    })
-    .then(function(data) {
-      return new User(data);
-    });
+    .then(data => RPC("user.status", {}))
+    .then(data => new User(data));
     
     return loginPromise;
   }

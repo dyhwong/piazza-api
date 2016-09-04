@@ -22,8 +22,6 @@ var Content = function(content, classID, parent) {
 }
 
 Content.prototype._init = function(content, classID) {
-  var that = this;
-
   if (_.last(this.history)) {
     this.authorID = _.last(content.history).uid;
     this.editorIDs = _.chain(content.history)
@@ -37,9 +35,10 @@ Content.prototype._init = function(content, classID) {
     this.editorIDs = [];
   }
 
-  this.children = _.map(content.children, function(content) {
-    return new Content(content, classID, that);
-  });
+  this.children = _.map(
+    content.children,
+    content => new Content(content, this.classID, that)
+  );
 }
 
 Content.prototype.getAuthor = function() {
@@ -47,9 +46,7 @@ Content.prototype.getAuthor = function() {
     ids: [this.authorID],
     nid: this.classID,
   })
-  .then(function(users) {
-    return users[0].name;
-  });
+  .then(users => users[0].name);
 
   return usersPromise;
 }
@@ -62,9 +59,7 @@ Content.prototype.getEditors = function() {
     ids: this.editorIDs,
     nid: this.classID,
   })
-  .then(function(users) {
-    return _.map(users, "name");
-  });
+  .then(users => _.map(users, "name"));
   
   return usersPromise;
 }
@@ -74,21 +69,15 @@ Content.prototype.getParent = function() {
 }
 
 Content.prototype.getStudentResponse = function() {
-  return _.find(this.children, function(child) {
-    return child.type === "s_answer";
-  });
+  return _.find(this.children, child => child.type === "s_answer");
 }
 
 Content.prototype.getInstructorResponse = function() {
-  return _.find(this.children, function(child) {
-    return child.type === "i_answer";
-  });
+  return _.find(this.children, child => child.type === "i_answer");
 }
 
 Content.prototype.getFollowups = function() {
-  return _.filter(this.children, function(child) {
-    return child.type === "followup";
-  });
+  return _.filter(this.children, child => child.type === "followup");
 }
 
 module.exports = Content;

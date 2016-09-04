@@ -13,15 +13,18 @@ var RPC = function(method, params) {
     jar: cookieJar
   };
 
-  var promise = new Promise(function(resolve, reject) {
-    request.post(requestJSON, function(error, response, body) {
-      if (error) {
-        return reject(error);
-      } else if (body.error) {
-        return reject(body.error);
+  var promise = new Promise((resolve, reject) => {
+    request.post(
+      requestJSON,
+      (error, response, body) => {
+        if (error) {
+          return reject(error);
+        } else if (body.error) {
+          return reject(body.error);
+        }
+        return resolve(body.result);
       }
-      return resolve(body.result);
-    });
+    );
   });
 
   return promise;
