@@ -12,7 +12,7 @@ var Content = function(content, classID, parent) {
   this.content = content.history[0].content;
 
   this.created = content.created;
-  this.views = content.unique_views || parent.views;
+  this.views = _.isNumber(content.unique_views) ? content.unique_views : parent.views;
   this.folders = content.folders || parent.folders;
   this.tags = content.tags || parent.tags;
   this.history = content.history;
@@ -78,6 +78,14 @@ Content.prototype.getInstructorResponse = function() {
 
 Content.prototype.getFollowups = function() {
   return _.filter(this.children, child => child.type === "followup");
+}
+
+Content.prototype.delete = function() {
+  var deletePromise = RPC("content.delete", {
+    cid: this.id,
+  });
+
+  return deletePromise;
 }
 
 module.exports = Content;

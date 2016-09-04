@@ -63,7 +63,13 @@ Introduction to Computers
 Introduction to Computers
 > user.isTakingClass('gptvhze2ToY')
 true
-``` 
+```
+
+Users can also create posts by calling `postNote` or `postQuestion` and passing in the class ID, post title, post content, and a options JSON object. The options include
+
+* bypass_email [Boolean] - whether to immediately email to the students after posting (only works if user is an instructor in the class)
+* folders [Array] - array of folder names to associate with the post
+* anonymous [String] - which level of anonymity ("no", "stud", or "full")
 
 ## Schools
 
@@ -133,6 +139,8 @@ John Smith
 > content.getEditors()
 ['John Smith', 'Jane Doe']
 ```
+
+Content objects can also be deleted by calling the `delete` method. Note that this only works if the user has appropriate permissions (instructor privileges).
 
 ## Feed Items
 

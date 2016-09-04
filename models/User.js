@@ -1,6 +1,7 @@
 var _ = require("lodash");
 
 var Class = require("./Class.js");
+var Content = require("./Content.js");
 var RPC = require("../RPC.js");
 
 var User = function(user) {
@@ -35,6 +36,59 @@ User.prototype.getClassesByRole = function(role) {
 
 User.prototype.isTakingClass = function(classID) {
   return this.classIDs.indexOf(classID) > -1;
+}
+
+User.prototype.post = function(classID, title, content, options) {
+  var options = options || {};
+
+  var classFolders = this.getClassByID(classID).folders;
+  var folders = ["other"];
+  if (!_.isUndefined(options.folders)) {
+    var validFolders = _.intersection(classFolders, options.folders);
+    if (validFolders.length !== 0) {
+      folders = validFolders;
+    }
+  }
+
+  var config = {};
+  var bypassEmail = this.roles[classID] === "professor" && options.bypass_email;
+  if (bypassEmail) {
+    config.bypass_email = 1;
+  }
+
+  var postPromise = RPC("content.create", {
+    anonymous: options.anonymous, // "no", "stud", "full"
+    config: config,
+    content: content,
+    folders: folders,
+    nid: classID,
+    status: "active",
+    subject: title,
+    type: options.type,
+  })
+  .then(data => new Content(data, classID));
+
+  return postPromise;
+}
+
+User.prototype.postNote = function(classID, title, content, options) {
+  if (_.isUndefined(options)) {
+    options = { type: "note" };
+  }
+  else {
+    options.type = "note";
+  }
+  return this.post(classID, title, content, options);
+}
+
+User.prototype.postQuestion = function(classID, title, content, options) {
+  if (_.isUndefined(options)) {
+    options = { type: "question" };
+  }
+  else {
+    options.type = "question";
+  }
+  return this.post(classID, title, content, options);
 }
 
 module.exports = User;
