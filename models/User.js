@@ -95,4 +95,38 @@ User.prototype.postQuestion = function(classID, title, content, options) {
   return this.post(classID, title, content, options);
 }
 
+User.prototype.answerQuestion = function(question, answer, options) {
+  if (question.type !== "question") {
+    throw new Error("not a question");
+  }
+
+  var options = options || {};
+
+  var type, revision;
+  switch (this.getRoleByClassID(question.classID)) {
+    case "student":
+      type = "s_answer";
+      revision = _.isUndefined(question.getStudentResponse()) ? 1 : question.getStudentResponse().history.length;
+      break;
+    case "professor":
+      type = "i_answer";
+      revision = _.isUndefined(question.getInstructorResponse()) ? 1 : question.getInstructorResponse().history.length; 
+      break;
+  }
+
+  var answerPromise = RPC(
+    "content.answer",
+    {
+      anonymous: options.anonymous || "no",
+      cid: question.id,
+      content: answer,
+      revision: revision,
+      type: type,
+    }
+  )
+  .then(data => new Content(data, question.classID, question));
+
+  return answerPromise;
+}
+
 module.exports = User;
