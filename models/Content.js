@@ -8,8 +8,13 @@ var Content = function(content, classID, parent) {
   this.classID = classID;
   this.type = content.type;
 
-  this.title = content.history[0].subject;
-  this.content = content.history[0].content;
+  if (this.type !== "followup" && this.type !== "feedback") {
+    this.title = content.history[0].subject;
+    this.content = content.history[0].content;
+  }
+  else {
+    this.content = content.subject;
+  }
 
   this.created = content.created;
   this.views = _.isNumber(content.unique_views) ? content.unique_views : parent.views;
@@ -30,20 +35,23 @@ Content.prototype._init = function(content, classID) {
       .unique("uid")
       .map("uid")
       .value();
+
+    var studentResponse = _.find(content.children, child => child.type === "s_answer");
+    if (studentResponse) {
+      this.studentResponse = new Content(studentResponse, this.classID, this);
+    }
+
+    var instructorResponse = _.find(content.children, child => child.type === "i_answer");
+    if (instructorResponse) {
+      this.instructorResponse = new Content(instructorResponse, this.classID, this);
+    }
+
+    this.followups = _.filter(content.children, child => child.type === "followup");
   }
   else {
     this.authorID = content.uid;
     this.editorIDs = [];
   }
-
-  var children = _.map(
-    content.children,
-    content => new Content(content, this.classID, this)
-  );
-
-  this.studentResponse = _.find(children, child => child.type === "s_answer");
-  this.instructorResponse = _.find(children, child => child.type === "i_answer");
-  this.followups = _.filter(children, child => child.type === "followup");
 }
 
 Content.prototype.getAuthor = function() {
