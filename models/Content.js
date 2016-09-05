@@ -35,10 +35,14 @@ Content.prototype._init = function(content, classID) {
     this.editorIDs = [];
   }
 
-  this.children = _.map(
+  var children = _.map(
     content.children,
-    content => new Content(content, this.classID, that)
+    content => new Content(content, this.classID, this)
   );
+
+  this.studentResponse = _.find(children, child => child.type === "s_answer");
+  this.instructorResponse = _.find(children, child => child.type === "i_answer");
+  this.followups = _.filter(children, child => child.type === "followup");
 }
 
 Content.prototype.getAuthor = function() {
@@ -69,15 +73,15 @@ Content.prototype.getParent = function() {
 }
 
 Content.prototype.getStudentResponse = function() {
-  return _.find(this.children, child => child.type === "s_answer");
+  return this.studentResponse;
 }
 
 Content.prototype.getInstructorResponse = function() {
-  return _.find(this.children, child => child.type === "i_answer");
+  return this.instructorResponse;
 }
 
 Content.prototype.getFollowups = function() {
-  return _.filter(this.children, child => child.type === "followup");
+  return this.followups;
 }
 
 Content.prototype.delete = function() {

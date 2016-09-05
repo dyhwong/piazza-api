@@ -50,7 +50,7 @@ User fields include
 * id [String] - a unique id for each user
 * name [String] - the name of the user
 * email [String] - the email address of the user
-* roles [Object] - maps IDs of the user's classes to the role (for example: 'student', 'instructor')
+* roles [Object] - maps IDs of the user's classes to the role (for example: 'student', 'professor')
 * classIds [Array] - an array containing the string IDs of the user's enrolled classes
 * classes [Array] - an array of Class objects the user is enrolled in
 * lastSeenClass [Class] - the most recent Class the user has looked at
