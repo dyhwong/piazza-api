@@ -34,6 +34,10 @@ User.prototype.getClassesByRole = function(role) {
   return _.filter(this.classes, course => roles[course.id] === role);
 }
 
+User.prototype.getRoleByClassID = function(classID) {
+  return this.roles[classID];
+}
+
 User.prototype.isTakingClass = function(classID) {
   return this.classIDs.indexOf(classID) > -1;
 }
