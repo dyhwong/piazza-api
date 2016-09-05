@@ -150,6 +150,8 @@ Content objects can also be deleted by calling the `delete` method. Note that th
 
 Editing a Content object is currently unsupported.
 
+Some content can be upvoted ("instructor thinks this is a good answer" or "instructor thinks this is a good question"). This is done through `upvote` method. `undoUpvote` does the opposite and removes the endorsement. This can only be done to questions, notes, and answers.
+
 ## Feed Items
 
 Feed item fields include

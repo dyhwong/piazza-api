@@ -17,6 +17,7 @@ var Content = function(content, classID, parent) {
   this.tags = content.tags || parent.tags;
   this.history = content.history;
   this.changeLog = content.change_log;
+  this.upvoted = this.is_tag_good || this.is_tag_endorse;
 
   this._init(content, classID);
 }
@@ -90,6 +91,52 @@ Content.prototype.delete = function() {
   });
 
   return deletePromise;
+}
+
+Content.prototype.upvote = function() {
+  switch (this.type) {
+    case "note":
+    case "question":
+      return RPC("content.add_feedback", {
+        cid: this.id,
+        type: "tag_good",
+      });
+    case "s_answer":
+    case "i_answer":
+      return RPC("content.add_feedback", {
+        cid: this.id,
+        type: "tag_endorse",
+      });
+    default:
+      throw new Error("cannot upvote this content");
+  }
+
+  this.upvoted = true;
+}
+
+Content.prototype.undoUpvote = function() {
+  switch (this.type) {
+    case "note":
+    case "question":
+      return RPC("content.remove_feedback", {
+        cid: this.id,
+        type: "tag_good",
+      });
+    case "s_answer":
+    case "i_answer":
+      return RPC("content.remove_feedback", {
+        cid: this.id,
+        type: "tag_endorse",
+      });
+    default:
+      throw new Error("cannot undo upvote for this content");
+  }
+
+  this.upvoted = false;
+}
+
+Content.prototype.isUpvoted = function() {
+  return this.upvoted;
 }
 
 module.exports = Content;
