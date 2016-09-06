@@ -168,4 +168,24 @@ Content.prototype.followup = function(followup, options) {
   return followupPromise;
 }
 
+Content.prototype.reply = function(reply, options) {
+  if (this.type !== "followup") {
+    throw new Error("cannot reply to this content");
+  }
+
+  var options = options || {};
+  var replyPromise = RPC(
+    "content.create",
+    {
+      anonymous: options.anonymous || "no",
+      cid: this.id,
+      nid: this.classID,
+      subject: reply,
+      type: "feedback",
+    }
+  ).then(data => new Content(data, this.classID, this));
+
+  return replyPromise;
+}
+
 module.exports = Content;

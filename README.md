@@ -156,6 +156,8 @@ Users can follow up with notes and questions by calling the `followup` method an
 
 * anonymous [String] - which level of anonymity
 
+Users can also reply to followups by calling `reply` and providing the content of the reply.
+
 ## Feed Items
 
 Feed item fields include
