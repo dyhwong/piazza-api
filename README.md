@@ -152,6 +152,10 @@ Editing a Content object is currently unsupported.
 
 Some content can be upvoted ("instructor thinks this is a good answer" or "instructor thinks this is a good question"). This is done through `upvote` method. `undoUpvote` does the opposite and removes the endorsement. This can only be done to questions, notes, and answers.
 
+Users can follow up with notes and questions by calling the `followup` method and providing the content and an options JSON object:
+
+* anonymous [String] - which level of anonymity
+
 ## Feed Items
 
 Feed item fields include

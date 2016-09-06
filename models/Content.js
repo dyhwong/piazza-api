@@ -147,4 +147,25 @@ Content.prototype.isUpvoted = function() {
   return this.upvoted;
 }
 
+Content.prototype.followup = function(followup, options) {
+  if (this.type !== "note" && this.type !== "question") {
+    throw new Error("cannot followup for this content");
+  }
+
+  var options = options || {};
+  var followupPromise = RPC(
+    "content.create",
+    {
+      anonymous: options.anonymous || "no",
+      cid: this.id,
+      content: "",
+      nid: this.classID,
+      subject: followup,
+      type: "followup",
+    }
+  ).then(data => new Content(data, this.classID, this));
+
+  return followupPromise;
+}
+
 module.exports = Content;
