@@ -188,4 +188,20 @@ Content.prototype.reply = function(reply, options) {
   return replyPromise;
 }
 
+Content.prototype.markResolved = function(resolved) {
+  if (this.type !== "followup") {
+    throw new Error("cannot mark this content as resolved");
+  }
+
+  var resolvedPromise  = RPC(
+    "content.mark_resolved",
+    {
+      cid: this.id,
+      resolved: resolved,
+    }
+  ).then(data => new Content(data, this.classID, this));
+
+  return resolvedPromise;
+}
+
 module.exports = Content;

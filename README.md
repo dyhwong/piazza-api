@@ -158,6 +158,8 @@ Users can follow up with notes and questions by calling the `followup` method an
 
 Users can also reply to followups by calling `reply` and providing the content of the reply.
 
+Users can also mark followups as resolved or not by calling `markResolved` and providing either `true` or `false` depending on whether the followup is resolved or not.
+
 ## Feed Items
 
 Feed item fields include
