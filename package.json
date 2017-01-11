@@ -1,8 +1,8 @@
 {
   "name": "piazza-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An API for Piazza",
-  "main": "piazza.js",
+  "main": "Piazza.js",
   "directories": {
     "test": "tests"
   },
