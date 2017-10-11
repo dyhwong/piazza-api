@@ -132,7 +132,7 @@ Content fields include
 * folders [Array] - array of folder names the content is in
 * tags [Array] - array of tags the content is associated with (includes folders)
 * history [Array] - array of Objects containing the past states of the post, in reverse chronological order
-* changeLog [Array] - array of Objects containing the actiosn taken on the post, in chronological order
+* changeLog [Array] - array of Objects containing the actions taken on the post, in chronological order
 * children [Array] - array of children Content objects (student answers, instructor answers, and followups)
 
 Content objects have access to all other Content objects related to time like their parent and children. The `getParent` method returns the parent Content object (or none if its type is 'question' or 'note'). Both `getStudentResponse` and `getInstructorResponse` return the corresponding child Content object while `getFollowups` returns an array of all children Content objects that are followups of the current post.
